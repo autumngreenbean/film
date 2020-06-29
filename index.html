@@ -13,7 +13,7 @@
 	}
 	
 	</style>
-	1
+	2121
 	<body>
 		
 <!-- 	2018	 -->
@@ -42,11 +42,13 @@
 		</script>
 		
 		<script type="text/javascript">
+		let i = 0;
     document.onkeydown = function(event) {
-	    let i = 0;
+	    
         switch (event.keyCode) {
-           case 37: i++;
-                alert('Left key pressed'+ i); 
+           case 37: 
+		i=+1;
+                alert('Left key pressed'); 
               break;
            case 38:
                 alert('Up key pressed');
