@@ -13,13 +13,21 @@
 	}
 	
 	</style>
-	22
+	44
 	<body>
 		
 		
 <!-- 	2018	 -->
-		<script>
-		let myImages18[] = ['18.08.01.jpg', '18.08.01a.jpg', '18.08.01b.jpg', '18.08.01c.jpg', '18.08.01d.jpg', 
+	
+		
+		
+		<div class="container">
+    <div id="slideshow">
+        <img alt="slideshow" src="18.08.01a.jpg" id="imgClickAndChange" onclick="changeImage()" />
+    </div>
+</div>
+<script>
+    var imgs = ['18.08.01.jpg', '18.08.01a.jpg', '18.08.01b.jpg', '18.08.01c.jpg', '18.08.01d.jpg', 
 				    '18.08.01e.jpg', '18.02.15.jpg', '18.02.15a.jpg', '18.02.15b.jpg', '18.02.15c.jpg', 
 				    '18.02.15d.jpg', '18.02.15e.jpg', '18.02.17.jpg', '18.02.17a.jpg', '18.02.17b.jpg', 
 				    '18.02.17c.jpg', '18.02.17d.jpg', '18.02.17e.jpg', '18.02.17f.jpg', '18.02.17g.jpg', 
@@ -38,48 +46,22 @@
 				    '18.12.06e.jpg', '18.12.06f.jpg', '18.12.06g.jpg', '18.12.06h.jpg', '18.12.06i.jpg', 
 				    '18.12.06j.jpg', '18.12.06k.jpg', '18.12.06l.jpg', '18.12.06m.jpg', '18.12.06n.jpg', 
 				    '18.12.06o.jpg', '18.12.06p.jpg', '18.12.06q.jpg'];
-		</script>
-		
-		
-		<div><img id="x" src="18.08.01.jpg" height= 50% width=50%></div>
-		
-		
-		<script type="text/javascript">
-		let i=0;
-    document.onkeydown = function(event) {
-	    
-        switch (event.keyCode) {
-           case 37: 
-			i--;
-			if (i=0||i<0) {i=(myImages18.length);}
-			function ReplacingImage(){
-  			  document.getElementById("x").src=(myImages18[i]);
-			}
-			alert(''+i);
-                //alert('Left key pressed'+ i); 
-              break;
-           case 38:
-                alert('Up key pressed');
-              break;
-           case 39:
-			i++;
-			if (i>myImages18.length) { i=0;}
-			function ReplacingImage(){
-  			  document.getElementById("x").src=(myImages18[i]);
-			}
-			alert(''+i);
-                 //alert('Right key pressed');
-              break;
-           case 40:
-                alert('Down key pressed');
-              break;
-        }
-	    
-    };
-</script>
-		
-		
 
+    function changeImage(dir) {
+        var img = document.getElementById("imgClickAndChange");
+        img.src = imgs[imgs.indexOf(img.src) + (dir || 1)] || imgs[dir ? imgs.length - 1 : 0];
+    }
+
+    document.onkeydown = function(e) {
+        e = e || window.event;
+        if (e.keyCode == '37') {
+            changeImage(-1) //left <- show Prev image
+        } else if (e.keyCode == '39') {
+            // right -> show next image
+            changeImage()
+        }
+    }
+</script>
 		
 	</body>
 	</html>
