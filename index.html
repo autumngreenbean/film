@@ -13,8 +13,9 @@
 	}
 	
 	</style>
-	66
+	77
 	<body>
+		
 		
 <!-- 	2018	 -->
 		<script>
@@ -37,9 +38,11 @@
 				    '18.12.06e.jpg', '18.12.06f.jpg', '18.12.06g.jpg', '18.12.06h.jpg', '18.12.06i.jpg', 
 				    '18.12.06j.jpg', '18.12.06k.jpg', '18.12.06l.jpg', '18.12.06m.jpg', '18.12.06n.jpg', 
 				    '18.12.06o.jpg', '18.12.06p.jpg', '18.12.06q.jpg'];
-			
-		
 		</script>
+		
+		
+		<div><img id="x" src="18.08.01.jpg"></div>
+		
 		
 		<script type="text/javascript">
 		let i=0;
@@ -47,19 +50,30 @@
 	    
         switch (event.keyCode) {
            case 37: 
-			i++;
-                alert('Left key pressed'+ i); 
+			i--;
+			if (i=0||i<0) {i=(myImages18.length);}
+			function ReplacingImage(){
+  			  document.getElementById("x").src=myImages18[i];
+			}
+			
+                //alert('Left key pressed'+ i); 
               break;
            case 38:
                 alert('Up key pressed');
               break;
            case 39:
-                alert('Right key pressed');
+			i++;
+			if (i>myImages18.length) { i=0;}
+			function ReplacingImage(){
+  			  document.getElementById("x").src=myImages18[i];
+			}
+                 //alert('Right key pressed');
               break;
            case 40:
                 alert('Down key pressed');
               break;
         }
+	    
     };
 </script>
 		
