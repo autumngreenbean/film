@@ -26,7 +26,9 @@
         <img alt="slideshow" src="18.08.01a.jpg" width = 50% height = 50% id="imgClickAndChange" onclick="changeImage()" />
     </div>
 </div>
-<script>
+
+   
+function imgCycle(e) {
     var imgs = ['18.08.01.jpg', '18.08.01a.jpg', '18.08.01b.jpg', '18.08.01c.jpg', '18.08.01d.jpg', 
 				    '18.08.01e.jpg', '18.02.15.jpg', '18.02.15a.jpg', '18.02.15b.jpg', '18.02.15c.jpg', 
 				    '18.02.15d.jpg', '18.02.15e.jpg', '18.02.17.jpg', '18.02.17a.jpg', '18.02.17b.jpg', 
@@ -46,23 +48,51 @@
 				    '18.12.06e.jpg', '18.12.06f.jpg', '18.12.06g.jpg', '18.12.06h.jpg', '18.12.06i.jpg', 
 				    '18.12.06j.jpg', '18.12.06k.jpg', '18.12.06l.jpg', '18.12.06m.jpg', '18.12.06n.jpg', 
 				    '18.12.06o.jpg', '18.12.06p.jpg', '18.12.06q.jpg'];
+<script>
+        // reference to the img element:
+        imgElement = document.getElementById('imgClickAndChange'),
+        // finding the string of the src after the last '/' character:
+        curImg = imgElement.src.split('/').pop(),
+        // finding that string from the array of images:
+        curIndex = imgs.indexOf(curImg),
+        // initialising the nextIndex variable:
+        nextIndex;
 
-    function changeImage(dir) {
-        var img = document.getElementById("imgClickAndChange");
-        img.src = imgs[imgs.indexOf(img.src) + (dir || 1)] || imgs[dir ? imgs.length - 1 : 0];
-    }
-
-    document.onkeydown = function(e) {
-        e = e || window.event;
-        if (e.keyCode == '37') {
-            changeImage(-1) //left <- show Prev image
-        } else if (e.keyCode == '39') {
-            // right -> show next image
-            changeImage()
+    // if we have a keyCode (therefore we have a keydown or keyup event:
+    if (e.keyCode) {
+        // we do different things based on which key was pressed:
+        switch (e.keyCode) {
+            // keyCode 37 is the left arrow key:
+            case 37:
+                // if the current index is 0 (the first element in the array)
+                // we next show the last image in the array, at position 'imgs.length - 1'
+                // otherwise we show the image at the previous index:
+                nextIndex = curIndex === 0 ? (imgs.length - 1) : curIndex - 1;
+                break;
+                // keyCode 39 is the right arrow key:
+            case 39:
+                // if curIndex + 1 is equal to the length of the images array,
+                // we show the first element from the array, otherwise we use the next:
+                nextIndex = curIndex + 1 === imgs.length ? 0 : curIndex + 1;
+                break;
         }
+        // if we don't have a keyCode, we check if the event-type (in lowercase)
+        // is a mousedown:
+    } else if (e.type.toLowerCase() === 'mousedown') {
+        // I'm assuming you'd like to advance to the next image, rather
+        // than regress to the previous (same check as above):
+        nextIndex = curIndex + 1 === imgs.length ? 0 : curIndex + 1;
     }
-</script>
-		
+    // setting the src of the image to the relevant URL + the string from the array
+    // at the 'nextIndex':
+    imgElement.src = 'http://lorempixel.com/200/200/' + imgs[nextIndex];
+}
+
+// binding a mousedown event-handler to the 'img' element:
+document.getElementById('imgClickAndChange').addEventListener('mousedown', imgCycle);
+// binding the keydown event-handler to the 'body' element:
+document.body.addEventListener('keydown', imgCycle);
+		</script?>
 	</body>
 	</html>
 
